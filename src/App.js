@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import HelloWorld from './components/HelloWorld'
 
 class App extends Component {
+  state = {
+    game: { board: [] }
+  }
+
   componentDidMount() {
     fetch('https://minesweeper-api.herokuapp.com/games', {
       method: 'POST',
@@ -24,20 +27,25 @@ class App extends Component {
   render() {
     return (
       <>
-        <HelloWorld />
-        {/* <div>
+        <div>
           <table>
-            {this.state.newGame.board.map((row, i) => {
-              return (
-                <tr key={i}>
-                  {row.map((col, j) => {
-                    return <td key={j}>{this.state.newGame.board[i][j]}</td>
-                  })}
-                </tr>
-              )
-            })}
+            <tbody>
+              {this.state.game.board.map((row, i) => {
+                return (
+                  <tr key={i}>
+                    {row.map((col, j) => {
+                      return (
+                        <td key={j} className="data">
+                          {this.state.game.board[i][j]}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
+            </tbody>
           </table>
-        </div> */}
+        </div>
       </>
     )
   }
