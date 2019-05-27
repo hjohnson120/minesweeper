@@ -10,3 +10,20 @@ body {
   margin: 0;
   min-height: 100%;
 }
+
+.table {
+  text-align: center;
+  justify-content: center;
+  margin-left: 28%;
+  margin-top: 8%;
+}
+
+.data {
+  background-color: darkgreen;
+  width: 45px;
+  height: 45px;
+  border: black;
+  border: solid;
+  border-width: 5px;
+  margin: 0%;
+}
