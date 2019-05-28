@@ -6,24 +6,53 @@ html {
   height: 100%;
 }
 
+header {
+  text-align: center;
+  font-size: 4rem;
+  color: white;
+  padding: 2%;
+  background-color: black;
+  opacity: 0.9;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+}
+
 body {
   margin: 0;
   min-height: 100%;
+  background-image: url('bombimg.jpg');
+  background-position: top;
 }
 
-.table {
-  text-align: center;
+table {
   justify-content: center;
-  margin-left: 28%;
-  margin-top: 8%;
+  display: flex;
+  background-color: white;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 3%;
 }
-
 .data {
-  background-color: darkgreen;
+  background-color: grey;
   width: 45px;
   height: 45px;
   border: black;
   border: solid;
   border-width: 5px;
   margin: 0%;
+}
+h1 {
+  text-align: center;
+  background-color: white;
+  opacity: 0.8;
+  margin-left: 35%;
+  margin-right: 35%;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+}
+
+.play-again {
+  justify-content: center;
+  display: flex;
+  text-align: center;
 }

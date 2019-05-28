@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import Header from './components/Header'
 
 const gameUrl = 'https://minesweeper-api.herokuapp.com/'
 
 class App extends Component {
   state = {
-    game: { board: [] }
+    game: { board: [] },
+    message: ''
   }
 
   componentDidMount() {
@@ -20,10 +22,27 @@ class App extends Component {
       })
       .then(newGame => {
         this.setState({
-          game: newGame
+          game: newGame,
+          message: newGame.state
         })
         console.log({ newGame })
       })
+  }
+
+  whatsYourStat() {
+    if (this.state.game.state === 'won') {
+      this.setState({
+        message: 'Bomb.com You Win!!'
+      })
+    } else if (this.state.game.state === 'lost') {
+      this.setState({
+        message: 'Well That Blew Up On Ya.. You Lose!'
+      })
+    } else {
+      this.setState({
+        message: 'Tik Tok, Tik Tok'
+      })
+    }
   }
 
   cellClick = (row, col) => {
@@ -38,11 +57,13 @@ class App extends Component {
       .then(resp => {
         return resp.json()
       })
-      .then(newPlaying => {
+      .then(newGame => {
         this.setState({
-          game: newPlaying
+          game: newGame,
+          message: newGame.state
         })
-        console.log({ newPlaying })
+        console.log({ newGame })
+        this.whatsYourStat()
       })
   }
 
@@ -59,45 +80,49 @@ class App extends Component {
       .then(resp => {
         return resp.json()
       })
-      .then(flagPicked => {
+      .then(currentGameState => {
         this.setState({
-          game: flagPicked
+          game: currentGameState,
+          message: currentGameState.state
         })
-        console.log({ flagPicked })
+        console.log({ currentGameState })
       })
   }
+
+  playAgain() {}
 
   render() {
     return (
       <>
-        <main>
-          <body className="table">
-            <table>
-              <tbody>
-                {this.state.game.board.map((row, i) => {
-                  return (
-                    <tr key={i}>
-                      {row.map((col, j) => {
-                        return (
-                          <td
-                            key={j}
-                            className="data"
-                            onClick={() => this.cellClick(i, j)}
-                            onContextMenu={event =>
-                              this.flaggedCell(event, i, j)
-                            }
-                          >
-                            {this.state.game.board[i][j]}
-                          </td>
-                        )
-                      })}
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </body>
-        </main>
+        <section>
+          <Header />
+          <table className="table-style">
+            <tbody>
+              {this.state.game.board.map((row, i) => {
+                return (
+                  <tr key={i}>
+                    {row.map((col, j) => {
+                      return (
+                        <td
+                          key={j}
+                          className="data"
+                          onClick={() => this.cellClick(i, j)}
+                          onContextMenu={event => this.flaggedCell(event, i, j)}
+                        >
+                          {this.state.game.board[i][j]}
+                        </td>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+          <h1>{this.state.message}</h1>
+          <div className="play-again">
+            <button onClick={this.playAgain()}>Play Again?</button>
+          </div>
+        </section>
       </>
     )
   }
