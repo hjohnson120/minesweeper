@@ -23,7 +23,7 @@ class App extends Component {
       .then(newGame => {
         this.setState({
           game: newGame,
-          message: newGame.state
+          message: ''
         })
         console.log({ newGame })
       })
@@ -89,7 +89,25 @@ class App extends Component {
       })
   }
 
-  playAgain() {}
+  playAgain() {
+    fetch('https://minesweeper-api.herokuapp.com/games', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ difficulty: 0 })
+    })
+      .then(resp => {
+        return resp.json()
+      })
+      .then(newGame => {
+        this.setState({
+          game: newGame,
+          message: ''
+        })
+        console.log({ newGame })
+      })
+  }
 
   render() {
     return (
@@ -120,7 +138,7 @@ class App extends Component {
           </table>
           <h1>{this.state.message}</h1>
           <div className="play-again">
-            <button onClick={this.playAgain()}>Play Again?</button>
+            <button onClick={() => this.playAgain()}>Play Again?</button>
           </div>
         </section>
       </>
